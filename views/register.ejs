@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-r from-indigo-600 to-teal-400 h-screen flex justify-center items-center">
+
+    <!-- Main Registration Form -->
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+        <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Create Your Account</h1>
+
+        <!-- Error Messages -->
+        <% if (errors && errors.length> 0) { %>
+            <div class="mb-4">
+                <ul class="text-red-500">
+                    <% errors.forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+            </div>
+            <% } %>
+
+                <!-- Registration Form -->
+                <form id="registerForm" action="/v1/signup" method="POST" class="space-y-6">
+                    <!-- First Name -->
+                    <div class="form-group">
+                        <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
+                        <input type="text" id="first_name" name="first_name" required
+                            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-200">
+                        <p id="first_nameError" class="text-red-500 text-xs mt-1 hidden">First name is required (max 25
+                            characters)</p>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="form-group">
+                        <label for="last_name" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" required
+                            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-200">
+                        <p id="last_nameError" class="text-red-500 text-xs mt-1 hidden">Last name is required (max 25
+                            characters)</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-200">
+                        <p id="emailError" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email address
+                        </p>
+                        <p id="emailExistsError" class="text-red-500 text-xs mt-1 hidden">This email is already
+                            registered</p>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="password" name="password" required
+                            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-200">
+                        <p id="passwordError" class="text-red-500 text-xs mt-1 hidden">Password is required (min 6
+                            characters, max 72 characters)</p>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label for="confirm_password" class="block text-sm font-medium text-gray-700">Confirm
+                            Password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" required
+                            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-200">
+                        <p id="confirmPasswordError" class="text-red-500 text-xs mt-1 hidden">Passwords do not match</p>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit"
+                        class="w-full py-3 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700 transition duration-200">
+                        Register
+                    </button>
+                </form>
+
+                <p class="mt-4 text-center text-gray-600">Already have an account? <a href="/v1/login"
+                        class="text-indigo-600 hover:text-indigo-700">Login here</a>.</p>
+    </div>
+
+    <!-- JavaScript for Client-Side Validation -->
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            let valid = true;
+
+            // Reset previous error messages
+            document.getElementById('first_nameError').classList.add('hidden');
+            document.getElementById('last_nameError').classList.add('hidden');
+            document.getElementById('emailError').classList.add('hidden');
+            document.getElementById('emailExistsError').classList.add('hidden');
+            document.getElementById('passwordError').classList.add('hidden');
+            document.getElementById('confirmPasswordError').classList.add('hidden');
+
+            // First Name Validation
+            const firstName = document.getElementById('first_name').value;
+            if (firstName.trim() === '' || firstName.length > 25) {
+                document.getElementById('first_nameError').classList.remove('hidden');
+                valid = false;
+            }
+
+            // Last Name Validation
+            const lastName = document.getElementById('last_name').value;
+            if (lastName.trim() === '' || lastName.length > 25) {
+                document.getElementById('last_nameError').classList.remove('hidden');
+                valid = false;
+            }
+
+            // Email Validation
+            const email = document.getElementById('email').value;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailError').classList.remove('hidden');
+                valid = false;
+            }
+
+            // Password Validation
+            const password = document.getElementById('password').value;
+            if (password.trim() === '' || password.length < 6 || password.length > 72) {
+                document.getElementById('passwordError').classList.remove('hidden');
+                valid = false;
+            }
+
+            // Confirm Password Validation
+            const confirmPassword = document.getElementById('confirm_password').value;
+            if (confirmPassword !== password) {
+                document.getElementById('confirmPasswordError').classList.remove('hidden');
+                valid = false;
+            }
+
+            // If form is not valid, prevent submission
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

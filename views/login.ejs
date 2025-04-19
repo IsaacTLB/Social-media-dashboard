@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gradient-to-r from-indigo-600 to-teal-400 h-screen flex justify-center items-center">
+    <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-md animate__animated animate__fadeIn">
+        <h1 class="text-2xl font-semibold text-center text-gray-800 mb-6">Login</h1>
+
+        <!-- Error Messages -->
+        <% if (errors && errors.length> 0) { %>
+            <div class="mb-4">
+                <ul class="text-red-500">
+                    <% errors.forEach(error=> { %>
+                        <li>
+                            <%= error.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+            </div>
+            <% } %>
+
+                <form action="/v1/login" method="POST" class="space-y-4">
+                    <div class="form-group">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" required
+                            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-200">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <input type="password" id="password" name="password" required
+                            class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600 transition duration-200">
+                    </div>
+
+                    <button type="submit"
+                        class="w-full py-3 bg-indigo-600 text-white rounded-md font-semibold hover:bg-indigo-700 transition duration-200">
+                        Login
+                    </button>
+                </form>
+
+                <p class="mt-4 text-center text-gray-600">Don't have an account? <a href="/v1/signup"
+                        class="text-indigo-600 hover:text-indigo-700">Register here</a>.</p>
+    </div>
+</body>
+
+</html>

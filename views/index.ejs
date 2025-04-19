@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+    <title>Social Media Dashboard</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__content">
+            <div>
+                <h1 class="heading--main">Social Media Dashboard</h1>
+                <p class="heading--sub">Total Followers: <%= data.total_followers %>
+                </p>
+            </div>
+            <div class="toggle__wrapper">
+                <p class="toggle__label">Dark Mode</p>
+                <input type="checkbox" id="toggle" class="toggle__input" />
+                <label for="toggle" class="toggle__switch"></label>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="card-grid card-grid--top">
+            <!-- Facebook -->
+            <div class="card card--lg card--facebook">
+                <div class="card__handle">
+                    <img class="card__handle-icon" src="/images/icon-facebook.svg" alt="Facebook Icon" />
+                    <span>@<%= data.facebook.username %></span>
+                </div>
+                <div class="card__total">
+                    <%= data.facebook.followers %>
+                </div>
+                <div class="card__followers">Followers</div>
+                <div class="card__latest <%= data.facebook.today >= 0 ? 'card__latest--up' : 'card__latest--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.facebook.today >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.facebook.today >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span>
+                        <%= Math.abs(data.facebook.today) %> Today
+                    </span>
+                </div>
+            </div>
+
+            <!-- Twitter -->
+            <div class="card card--lg card--twitter">
+                <div class="card__handle">
+                    <img class="card__handle-icon" src="/images/icon-twitter.svg" alt="Twitter Icon" />
+                    <span>@<%= data.twitter.handle %></span>
+                </div>
+                <div class="card__total">
+                    <%= data.twitter.followers %>
+                </div>
+                <div class="card__followers">Followers</div>
+                <div class="card__latest <%= data.twitter.today >= 0 ? 'card__latest--up' : 'card__latest--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.twitter.today >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.twitter.today >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span>
+                        <%= Math.abs(data.twitter.today) %> Today
+                    </span>
+                </div>
+            </div>
+
+            <!-- Instagram -->
+            <div class="card card--lg card--instagram">
+                <div class="card__handle">
+                    <img class="card__handle-icon" src="/images/icon-instagram.svg" alt="Instagram Icon" />
+                    <span>@<%= data.instagram.username %></span>
+                </div>
+                <div class="card__total">
+                    <%= data.instagram.followers %>
+                </div>
+                <div class="card__followers">Followers</div>
+                <div class="card__latest <%= data.instagram.today >= 0 ? 'card__latest--up' : 'card__latest--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.instagram.today >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.instagram.today >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span>
+                        <%= Math.abs(data.instagram.today) %> Today
+                    </span>
+                </div>
+            </div>
+
+            <!-- YouTube -->
+            <div class="card card--lg card--youtube">
+                <div class="card__handle">
+                    <img class="card__handle-icon" src="/images/icon-youtube.svg" alt="YouTube Icon" />
+                    <span>@<%= data.youtube.username %></span>
+                </div>
+                <div class="card__total">
+                    <%= data.youtube.subscribers %>
+                </div>
+                <div class="card__followers">Subscribers</div>
+                <div class="card__latest card__latest--down">
+                    <img class="card__trend-icon" src="images/<%= data.youtube.today >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.youtube.today >= 0 ? 'Up Icon' : 'Down Icon' %>" alt="Down Icon" />
+                    <span>
+                        <%= Math.abs(data.youtube.today) %> Today
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="heading--secondary">Overview - Today</h2>
+
+        <div class="card-grid card-grid--bottom">
+            <!-- Facebook Overview -->
+            <div class="card card--sm">
+                <span class="card__daily-result">Page Views</span>
+                <span class="card__daily-icon"><img src="/images/icon-facebook.svg" alt="Facebook Icon" /></span>
+                <span class="card__daily-total">
+                    <%= data.facebook.daily.pageviews %>
+                </span>
+                <div class="card__daily-change <%= data.facebook.daily.pageviewsChange >= 0 ? 'card__daily-change--up' : 'card__daily-change--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.facebook.daily.pageviewsChange >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.facebook.daily.pageviewsChange >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span><%= Math.abs(data.facebook.daily.pageviewsChange).toFixed(2) %>%</span>
+                </div>
+            </div>
+
+            <div class="card card--sm">
+                <span class="card__daily-result">Likes</span>
+                <span class="card__daily-icon"><img src="/images/icon-facebook.svg" alt="Facebook Icon" /></span>
+                <span class="card__daily-total">
+                    <%= data.facebook.daily.likes %>
+                </span>
+                <div class="card__daily-change <%= data.facebook.daily.likesChange >= 0 ? 'card__daily-change--up' : 'card__daily-change--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.facebook.daily.likesChange >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.facebook.daily.likesChange >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span><%= Math.abs(data.facebook.daily.likesChange).toFixed(2) %>%</span>
+                </div>
+            </div>
+
+            <!-- Instagram Overview -->
+            <div class="card card--sm">
+                <span class="card__daily-result">Likes</span>
+                <span class="card__daily-icon"><img src="/images/icon-instagram.svg" alt="Instagram Icon" /></span>
+                <span class="card__daily-total">
+                    <%= data.instagram.daily.likes %>
+                </span>
+                <div class="card__daily-change <%= data.instagram.daily.likesChange >= 0 ? 'card__daily-change--up' : 'card__daily-change--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.instagram.daily.likesChange >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.instagram.daily.likesChange >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span><%= Math.abs(data.instagram.daily.likesChange).toFixed(2) %>%</span>
+                </div>
+            </div>
+
+            <div class="card card--sm">
+                <span class="card__daily-result">Profile Views</span>
+                <span class="card__daily-icon"><img src="/images/icon-instagram.svg" alt="Instagram Icon" /></span>
+                <span class="card__daily-total">
+                    <%= data.instagram.daily.profileviews %>
+                </span>
+                <div class="card__daily-change <%= data.instagram.daily.profileviewsChange >= 0 ? 'card__daily-change--up' : 'card__daily-change--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.instagram.daily.profileviewsChange >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.instagram.daily.profileviewsChange >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span><%= Math.abs(data.instagram.daily.profileviewsChange).toFixed(2) %>%</span>
+                </div>
+            </div>
+
+            <!-- Twitter Overview -->
+            <div class="card card--sm">
+                <span class="card__daily-result">Retweets</span>
+                <span class="card__daily-icon"><img src="/images/icon-twitter.svg" alt="Twitter Icon" /></span>
+                <span class="card__daily-total">
+                    <%= data.twitter.daily.retweets %>
+                </span>
+                <div class="card__daily-change <%= data.twitter.daily.retweetsChange >= 0 ? 'card__daily-change--up' : 'card__daily-change--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.twitter.daily.retweetsChange >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.twitter.daily.retweetsChange >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span><%= Math.abs(data.twitter.daily.retweetsChange).toFixed(2) %>%</span>
+                </div>
+            </div>
+
+            <div class="card card--sm">
+                <span class="card__daily-result">Likes</span>
+                <span class="card__daily-icon"><img src="/images/icon-twitter.svg" alt="Twitter Icon" /></span>
+                <span class="card__daily-total">
+                    <%= data.twitter.daily.likes %>
+                </span>
+                <div class="card__daily-change <%= data.twitter.daily.likesChange >= 0 ? 'card__daily-change--up' : 'card__daily-change--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.twitter.daily.likesChange >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.twitter.daily.likesChange >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span><%= Math.abs(data.twitter.daily.likesChange).toFixed(2) %>%</span>
+                </div>
+            </div>
+
+            <!-- YouTube Overview -->
+            <div class="card card--sm">
+                <span class="card__daily-result">Likes</span>
+                <span class="card__daily-icon"><img src="/images/icon-youtube.svg" alt="YouTube Icon" /></span>
+                <span class="card__daily-total">
+                    <%= data.youtube.daily.likes %>
+                </span>
+                <div class="card__daily-change <%= data.youtube.daily.likesChange >= 0 ? 'card__daily-change--up' : 'card__daily-change--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.youtube.daily.likesChange >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.youtube.daily.likesChange >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span><%= Math.abs(data.youtube.daily.likesChange).toFixed(2) %>%</span>
+                </div>
+            </div>
+
+            <div class="card card--sm">
+                <span class="card__daily-result">Total Views</span>
+                <span class="card__daily-icon"><img src="/images/icon-youtube.svg" alt="YouTube Icon" /></span>
+                <span class="card__daily-total">
+                    <%= data.youtube.daily.totalviews %>
+                </span>
+                <div class="card__daily-change <%= data.youtube.daily.totalviewsChange >= 0 ? 'card__daily-change--up' : 'card__daily-change--down' %>">
+                    <img class="card__trend-icon" src="/images/<%= data.youtube.daily.totalviewsChange >= 0 ? 'icon-up.svg' : 'icon-down.svg' %>" alt="<%= data.youtube.daily.totalviewsChange >= 0 ? 'Up Icon' : 'Down Icon' %>" />
+                    <span><%= Math.abs(data.youtube.daily.totalviewsChange).toFixed(2) %>%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        Contact me <a href="#" target="_blank">Isaac Abasi</a>. Coded by <a href="https://github.com/IsaacTLB"
+            target="_blank">Isaac Abasi</a>.
+    </footer>
+
+    <script>
+        const toggleSwitch = document.querySelector(".toggle__input");
+
+        const currentTheme = localStorage.getItem("theme");
+        if (currentTheme) {
+            document.documentElement.setAttribute("data-theme", currentTheme);
+            if (currentTheme === "dark") {
+                toggleSwitch.checked = true;
+            }
+        }
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                document.documentElement.setAttribute("data-theme", "dark");
+                localStorage.setItem("theme", "dark");
+            } else {
+                document.documentElement.setAttribute("data-theme", "light");
+                localStorage.setItem("theme", "light");
+            }
+        }
+
+        toggleSwitch.addEventListener("change", switchTheme, false);
+    </script>
+</body>
+
+</html>
