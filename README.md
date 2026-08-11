@@ -115,27 +115,3 @@ A live demo URL is not included in this repository. If you want to preview the p
 ## License
 No license file was found in the repository. If you intend to reuse or distribute this code, add a LICENSE file to specify terms (for example MIT, Apache-2.0, etc.). Until a license is added, usa[...]
 
----
-
-If you want, I can:
-- produce a short CONTRIBUTING.md with run and test workflows,
-- extract the main environment variables into a .env.example,
-- or open a small PR that adds a basic MIT license (if you specify you want one).
-
-
-# Example: Add to Social-Media-Dashboard README
-
-## 📊 Features
-- Real-time data visualization with Chart.js
-- Multi-platform social media metrics aggregation
-- User authentication & dashboard customization
-- Responsive mobile-first design
-
-## 🚀 Live Demo
-[View Live Project](https://social-media-dashboard-yourname.vercel.app)
-
-## 💻 Tech Stack
-- Node.js + Express backend
-- React frontend
-- MongoDB database
-- Chart.js for visualizations
